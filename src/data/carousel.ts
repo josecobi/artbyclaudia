@@ -20,24 +20,24 @@ export interface CarouselSlide {
 export const carouselSlides: CarouselSlide[] = [
   {
     id: "1",
-    src: "/images/carousel/humanandnature_01.jpg",
-    alt: "Human & Nature Art",
-    title: "Human & Nature",
-    subtitle: "Exploring the connection between humanity and the natural world",
-  },
-  {
-    id: "2",
     src: "/images/carousel/humanandnature_02.jpg",
     alt: "Human & Nature Art",
     title: "Nature's Canvas",
     subtitle: "Where art meets the elements",
   },
   {
-    id: "3",
+    id: "2",
     src: "/images/carousel/humanandnature_06.jpg",
     alt: "Human & Nature Art",
     title: "Contemporary Expression",
     subtitle: "Bold strokes and vivid imagination",
+  },
+  {
+    id: "3",
+    src: "/images/carousel/humanandnature_01.jpg",
+    alt: "Human & Nature Art",
+    title: "Human & Nature",
+    subtitle: "Exploring the connection between humanity and the natural world",
   },
   {
     id: "4",

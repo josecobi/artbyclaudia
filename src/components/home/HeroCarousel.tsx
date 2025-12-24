@@ -53,7 +53,7 @@ export function HeroCarousel() {
           modules={[Autoplay, EffectFade, Navigation, Pagination]}
           effect="fade"
           autoplay={{
-            delay: 4000,
+            delay: 7000,
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
             waitForTransition: false,
@@ -72,34 +72,49 @@ export function HeroCarousel() {
           }}
           className="h-full w-full"
         >
-          {carouselSlides.map((slide) => (
-            <SwiperSlide key={slide.id}>
+          {carouselSlides.map((slide, index) => {
+            // Custom pan directions based on image
+            let panDirection;
+            if (slide.src.includes("humanandnature_06")) {
+              panDirection = "down";
+            } else if (slide.src.includes("humanandnature_10")) {
+              panDirection = "down";
+            } else {
+              panDirection = index % 2 === 0 ? "up" : "down";
+            }
+
+            return (
+            <SwiperSlide key={slide.id} data-pan={panDirection}>
               <div className="relative h-full w-full">
-                {/* Blurred background image */}
+                {/* Blurred background image with Ken Burns pan */}
                 <div className="absolute inset-0">
-                  <Image
-                    src={slide.src}
-                    alt=""
-                    fill
-                    priority={slide.id === "1"}
-                    quality={50}
-                    sizes="100vw"
-                    className="object-cover blur-2xl scale-110"
-                    aria-hidden="true"
-                  />
+                  <div className="ken-burns-wrapper absolute inset-0">
+                    <Image
+                      src={slide.src}
+                      alt=""
+                      fill
+                      priority={slide.id === "1"}
+                      quality={50}
+                      sizes="100vw"
+                      className="object-cover blur-2xl scale-[200]"
+                      aria-hidden="true"
+                    />
+                  </div>
                 </div>
 
-                {/* Main image (full artwork visible) */}
-                <div className="absolute inset-0">
-                  <Image
-                    src={slide.src}
-                    alt={slide.alt}
-                    fill
-                    priority={slide.id === "1"}
-                    quality={90}
-                    sizes="100vw"
-                    className="object-contain"
-                  />
+                {/* Main image (full artwork visible) with Ken Burns pan */}
+                <div className="absolute inset-0 overflow-hidden">
+                  <div className="ken-burns-wrapper absolute inset-0">
+                    <Image
+                      src={slide.src}
+                      alt={slide.alt}
+                      fill
+                      priority={slide.id === "1"}
+                      quality={90}
+                      sizes="100vw"
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
 
                 {/* Theme-aware gradient overlay */}
@@ -132,7 +147,8 @@ export function HeroCarousel() {
                 )}
               </div>
             </SwiperSlide>
-          ))}
+            );
+          })}
         </Swiper>
       </motion.div>
 
@@ -202,6 +218,24 @@ export function HeroCarousel() {
           }
         }
 
+        @keyframes kenBurnsPanUp {
+          0% {
+            transform: scale(1.3) translateY(0%);
+          }
+          100% {
+            transform: scale(1.3) translateY(-25%);
+          }
+        }
+
+        @keyframes kenBurnsPanDown {
+          0% {
+            transform: scale(1.3) translateY(-25%);
+          }
+          100% {
+            transform: scale(1.3) translateY(0%);
+          }
+        }
+
         .swiper-slide-active .slide-text-title {
           animation: slideTextFadeIn 0.8s ease-out 0.2s both;
         }
@@ -213,6 +247,40 @@ export function HeroCarousel() {
         .swiper-slide:not(.swiper-slide-active) .slide-text-title,
         .swiper-slide:not(.swiper-slide-active) .slide-text-subtitle {
           opacity: 0;
+        }
+
+        /* Ken Burns pan effect - applies to both background and main image */
+        /* Default: Pan Down slides start showing BOTTOM */
+        .ken-burns-wrapper {
+          transform: scale(1.3) translateY(-25%);
+        }
+
+        /* Pan Up slides start at center */
+        .swiper-slide[data-pan="up"] .ken-burns-wrapper {
+          transform: scale(1.3) translateY(0%);
+        }
+
+        /* Apply Pan Down animation */
+        .swiper-slide-active[data-pan="down"] .ken-burns-wrapper {
+          animation: kenBurnsPanDown 6000ms ease-in-out 1000ms forwards;
+        }
+
+        /* Apply Pan Up animation */
+        .swiper-slide-active[data-pan="up"] .ken-burns-wrapper {
+          animation: kenBurnsPanUp 6000ms ease-in-out 1000ms forwards;
+        }
+
+        /* Keep final position on previous slide during fade-out */
+        /* Pan Down slides end at center */
+        .swiper-slide-prev[data-pan="down"] .ken-burns-wrapper,
+        .swiper-slide-duplicate-prev[data-pan="down"] .ken-burns-wrapper {
+          transform: scale(1.3) translateY(0%);
+        }
+
+        /* Pan Up slides end showing BOTTOM */
+        .swiper-slide-prev[data-pan="up"] .ken-burns-wrapper,
+        .swiper-slide-duplicate-prev[data-pan="up"] .ken-burns-wrapper {
+          transform: scale(1.3) translateY(-25%);
         }
 
         .swiper-pagination-bullet-custom {
