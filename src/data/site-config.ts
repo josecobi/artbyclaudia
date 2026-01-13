@@ -4,7 +4,7 @@
  */
 
 export const siteConfig = {
-  name: "Art by Claudia",
+  name: "Art by Claudia Humburg",
   description: "Contemporary art exploring the connection between humanity and nature",
   author: "Claudia",
 
@@ -27,13 +27,13 @@ export const siteConfig = {
 
   // Footer content
   footer: {
-    copyright: `© ${new Date().getFullYear()} Art by Claudia. All rights reserved.`,
+    copyright: `© ${new Date().getFullYear()} Art by Claudia Humburg. All rights reserved.`,
   },
 
   // Social media (for future use)
   social: {
     instagram: "",
-    email: "",
+    email: "claudiah1@mac.com",
   },
 } as const;
 

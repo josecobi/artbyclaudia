@@ -1,16 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
+import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { carouselSlides } from "@/data/carousel";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-fade";
-import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 /**
@@ -20,27 +18,15 @@ import "swiper/css/pagination";
  * - Autoplay with 5s delay, pauses on hover
  * - Fade transition effect
  * - Subtle parallax scroll effect
- * - Elegant navigation arrows and pagination dots
+ * - Elegant pagination dots
  * - Theme-aware overlay and text
  * - Optimized images with Next/Image
  */
 export function HeroCarousel() {
-  const [mounted, setMounted] = useState(false);
   const { scrollY } = useScroll();
 
   // Parallax effect: slower scroll for background
   const y = useTransform(scrollY, [0, 500], [0, 150]);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    // Prevent hydration mismatch
-    return (
-      <div className="h-[95vh] w-full bg-[var(--color-bg-secondary)] animate-pulse" />
-    );
-  }
 
   return (
     <div className="relative h-[95vh] w-full overflow-hidden">
@@ -50,7 +36,7 @@ export function HeroCarousel() {
         className="absolute inset-0 h-[120%] w-full"
       >
         <Swiper
-          modules={[Autoplay, EffectFade, Navigation, Pagination]}
+          modules={[Autoplay, EffectFade, Pagination]}
           effect="fade"
           autoplay={{
             delay: 7000,
@@ -58,12 +44,8 @@ export function HeroCarousel() {
             pauseOnMouseEnter: true,
             waitForTransition: false,
           }}
-          speed={1200}
+          speed={50}
           loop={true}
-          navigation={{
-            nextEl: ".swiper-button-next-custom",
-            prevEl: ".swiper-button-prev-custom",
-          }}
           pagination={{
             el: ".swiper-pagination-custom",
             clickable: true,
@@ -86,20 +68,18 @@ export function HeroCarousel() {
             return (
             <SwiperSlide key={slide.id} data-pan={panDirection}>
               <div className="relative h-full w-full">
-                {/* Blurred background image with Ken Burns pan */}
-                <div className="absolute inset-0">
-                  <div className="ken-burns-wrapper absolute inset-0">
-                    <Image
-                      src={slide.src}
-                      alt=""
-                      fill
-                      priority={slide.id === "1"}
-                      quality={50}
-                      sizes="100vw"
-                      className="object-cover blur-2xl scale-[200]"
-                      aria-hidden="true"
-                    />
-                  </div>
+                {/* Blurred background image - no Ken Burns, always fills viewport */}
+                <div className="absolute inset-0 overflow-hidden">
+                  <Image
+                    src={slide.src}
+                    alt=""
+                    fill
+                    priority={slide.id === "1"}
+                    quality={50}
+                    sizes="100vw"
+                    className="object-cover blur-3xl scale-110"
+                    aria-hidden="true"
+                  />
                 </div>
 
                 {/* Main image (full artwork visible) with Ken Burns pan */}
@@ -127,8 +107,8 @@ export function HeroCarousel() {
                       {slide.title && (
                         <h2 className="slide-text-title mb-4 font-heading text-4xl font-bold text-white sm:text-5xl md:text-6xl lg:text-7xl"
                             style={{
-                              textShadow: '0 0 20px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.9), 0 8px 16px rgba(0,0,0,0.7), 2px 2px 4px rgba(0,0,0,1)',
-                              WebkitTextStroke: '1px rgba(0,0,0,0.5)'
+                              textShadow: '0 0 8px rgba(255,255,255,0.5), 0 0 16px rgba(255,255,255,0.3), 0 2px 4px rgba(0,0,0,0.6), 0 4px 12px rgba(0,0,0,0.5), 0 8px 24px rgba(0,0,0,0.4), 0 0 32px rgba(255,255,255,0.2), 2px 2px 6px rgba(0,0,0,0.7)',
+                              WebkitTextStroke: '0.5px rgba(0,0,0,0.15)'
                             }}>
                           {slide.title}
                         </h2>
@@ -136,8 +116,8 @@ export function HeroCarousel() {
                       {slide.subtitle && (
                         <p className="slide-text-subtitle text-lg text-white sm:text-xl md:text-2xl"
                            style={{
-                             textShadow: '0 0 15px rgba(0,0,0,0.9), 0 0 30px rgba(0,0,0,0.8), 0 2px 6px rgba(0,0,0,0.9), 0 4px 12px rgba(0,0,0,0.7), 1px 1px 3px rgba(0,0,0,1)',
-                             WebkitTextStroke: '0.5px rgba(0,0,0,0.5)'
+                             textShadow: '0 0 6px rgba(255,255,255,0.4), 0 0 12px rgba(255,255,255,0.3), 0 2px 4px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.4), 0 6px 16px rgba(0,0,0,0.3), 0 0 24px rgba(255,255,255,0.2), 1px 1px 4px rgba(0,0,0,0.6)',
+                             WebkitTextStroke: '0.5px rgba(0,0,0,0.1)'
                            }}>
                           {slide.subtitle}
                         </p>
@@ -152,37 +132,6 @@ export function HeroCarousel() {
         </Swiper>
       </motion.div>
 
-      {/* Custom Navigation Arrows */}
-      <button
-        className="swiper-button-prev-custom group absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 backdrop-blur-sm transition-all hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 sm:left-6 md:left-8"
-        aria-label="Previous slide"
-      >
-        <svg
-          className="h-6 w-6 text-white transition-transform group-hover:-translate-x-1 sm:h-8 sm:w-8"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-
-      <button
-        className="swiper-button-next-custom group absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/10 p-3 backdrop-blur-sm transition-all hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 sm:right-6 md:right-8"
-        aria-label="Next slide"
-      >
-        <svg
-          className="h-6 w-6 text-white transition-transform group-hover:translate-x-1 sm:h-8 sm:w-8"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-
       {/* Custom Pagination Dots */}
       <div className="swiper-pagination-custom absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 gap-2 sm:bottom-12" />
 
@@ -191,7 +140,13 @@ export function HeroCarousel() {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 1, repeat: Infinity, repeatType: "reverse" }}
-        className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex sm:bottom-12"
+        className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex sm:bottom-12 cursor-pointer hover:opacity-100 transition-opacity"
+        onClick={() => {
+          window.scrollTo({
+            top: window.innerHeight * 0.95,
+            behavior: 'smooth'
+          });
+        }}
       >
         <span className="text-sm text-white/80">Scroll</span>
         <svg

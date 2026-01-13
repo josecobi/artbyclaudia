@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { MasonryGallery } from "@/components/gallery/MasonryGallery";
+import { GalleryHero } from "@/components/gallery/GalleryHero";
 import { getGallery } from "@/data/galleries";
 import { siteConfig } from "@/data/site-config";
 
@@ -24,19 +25,21 @@ export default function BehindTheScenes() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
-      {/* Page Header */}
-      <header className="mb-12 text-center">
-        <h1 className="mb-4 font-heading text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-          {gallery.title}
-        </h1>
-        <p className="mx-auto max-w-2xl text-lg opacity-70 sm:text-xl">
-          {gallery.description}
-        </p>
-      </header>
+    <>
+      {/* Premium Hero Section */}
+      {gallery.heroImage && (
+        <GalleryHero
+          title={gallery.title}
+          description={gallery.description}
+          backgroundImage={gallery.heroImage}
+          backgroundAlt={`${gallery.title} gallery background`}
+        />
+      )}
 
-      {/* Masonry Gallery */}
-      <MasonryGallery images={gallery.images} />
-    </div>
+      <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        {/* Masonry Gallery */}
+        <MasonryGallery images={gallery.images} />
+      </div>
+    </>
   );
 }

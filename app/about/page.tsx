@@ -21,7 +21,7 @@ export default function AboutPage() {
           About {siteConfig.author}
         </h1>
         <p className="mx-auto max-w-2xl text-lg opacity-70 sm:text-xl">
-          Exploring the intersection of humanity and nature through contemporary art
+          Exploring the intersection of humanity and nature through contemporary&nbsp;art
         </p>
       </header>
 
@@ -55,7 +55,7 @@ export default function AboutPage() {
                 </p>
 
                 <p>
-                  Among other schools, she graduated from Art School "Die Maske" in Germany and quickly
+                  Among other schools, she graduated from Art School &quot;Die Maske&quot; in Germany and quickly
                   gained a reputation as a top make-up artist and hairstylist. Her professional successes
                   in Germany created a business trip to Hollywood and Southern California. Her professional
                   life blossomed immediately, but it was the breadth, scope and quality of California&apos;s
@@ -92,8 +92,8 @@ export default function AboutPage() {
 
                 <blockquote className="my-6 border-l-4 border-[var(--color-accent)] pl-6 italic">
                   <p className="text-xl leading-relaxed">
-                    "Just as Woman and Man merge to create life, I desire to ignite our spirits
-                    by reuniting Mankind and Mother Nature."
+                    &quot;Just as Woman and Man merge to create life, I desire to ignite our spirits
+                    by reuniting Mankind and Mother Nature.&quot;
                   </p>
                   <footer className="mt-2 text-lg font-medium not-italic">— Claudia</footer>
                 </blockquote>
@@ -131,10 +131,10 @@ export default function AboutPage() {
 
                 <blockquote className="my-6 text-center italic">
                   <p className="text-lg leading-relaxed">
-                    "Organic, yet designed.<br />
+                    &quot;Organic, yet designed.<br />
                     Natural, yet refined.<br />
                     Perfect in style, a beauty sublime,<br />
-                    Seemingly random, yet always divine."
+                    Seemingly random, yet always divine.&quot;
                   </p>
                 </blockquote>
               </div>

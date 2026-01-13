@@ -1,0 +1,112 @@
+/* Parallax landscape styles */
+.landscape {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  min-height: 400px;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #f5f3ed, #e8e4d8);
+}
+
+.landscape__layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* parallax effect calculation */
+  transform: translateY(calc(var(--scrollPos, 0px) * var(--offset, 0)));
+  will-change: transform;
+}
+
+.landscape__image {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  max-width: 300%;
+  max-height: 100%;
+  width: 2500px;
+}
+
+.landscape__image svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Color variables for landscape layers - Green nature theme */
+:root {
+  /* Sky/Clouds - lightest cream/beige */
+  --c0: #f5f3ed;
+  --c1: #e8e4d8;
+
+  /* Distant mountains - very light green-gray */
+  --c2: #dce0d3;
+  --c3: #cdd4c4;
+
+  /* Mid-distant mountains - light sage green */
+  --c4: #bdc7b2;
+  --c5: #adb89e;
+
+  /* Mid mountains - medium green (website accent) */
+  --c6: #9dab8a;
+  --c7: #8b9a7e;
+
+  /* Near hills - medium-darker green (still visible) */
+  --c8: #7a8a6d;
+  --c9: #6a7a5d;
+
+  /* Front hills - darker but still distinguishable green */
+  --c10: #5a6a4d;
+  --c11: #4a5a3d;
+
+  /* Foreground trees/silhouettes - darkest (only layer that's very dark) */
+  --c12: #2d3a20;
+}
+
+/* Dark mode - Darker green tones but still distinguishable */
+:root.dark {
+  --c0: #4a4a40;
+  --c1: #45453b;
+  --c2: #484a40;
+  --c3: #444538;
+  --c4: #404534;
+  --c5: #3c4030;
+  --c6: #38402c;
+  --c7: #343a28;
+  --c8: #303524;
+  --c9: #2c3020;
+  --c10: #282a1c;
+  --c11: #242518;
+  --c12: #1a1d10;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --c0: #4a4a40;
+    --c1: #45453b;
+    --c2: #484a40;
+    --c3: #444538;
+    --c4: #404534;
+    --c5: #3c4030;
+    --c6: #38402c;
+    --c7: #343a28;
+    --c8: #303524;
+    --c9: #2c3020;
+    --c10: #282a1c;
+    --c11: #242518;
+    --c12: #1a1d10;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .landscape {
+    height: 50vh;
+    min-height: 300px;
+  }
+}

@@ -25,6 +25,7 @@ export interface Gallery {
   title: string;
   slug: string;
   description: string;
+  heroImage?: string;
   images: GalleryImage[];
 }
 
@@ -36,6 +37,7 @@ export const galleries: Record<GalleryKey, Gallery> = {
     slug: "human-nature",
     description:
       "An exploration of the intimate connection between humanity and the natural world. These works celebrate the harmony, contrast, and symbiosis between human forms and organic elements.",
+    heroImage: "/images/galleries/human-nature/humanandnature_06.jpg",
     images: [
       {
         id: "hn-1",
@@ -261,6 +263,7 @@ export const galleries: Record<GalleryKey, Gallery> = {
     slug: "behind-scenes",
     description:
       "A glimpse into the creative process. From studio setups to spontaneous moments, these images reveal the artistry, experimentation, and passion that bring each piece to life.",
+    heroImage: "/images/galleries/behind-scenes/bts_01.jpg",
     images: [
       {
         id: "bs-1",
