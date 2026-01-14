@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "@/app/providers";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { MobileThemeToggle } from "@/components/layout/MobileThemeToggle";
 import { siteConfig } from "@/data/site-config";
 
 // Font configurations
@@ -39,6 +40,7 @@ export default function RootLayout({
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />
+            <MobileThemeToggle />
           </div>
         </Providers>
       </body>

@@ -41,7 +41,7 @@ export function HeroCarousel() {
   const y = useTransform(scrollY, [0, 500], [0, 150]);
 
   return (
-    <div className="relative h-[calc(100vh-4rem)] md:h-[95vh] w-full overflow-hidden">
+    <div className="relative h-[100vh] w-full overflow-hidden">
       {/* Parallax container - disabled on mobile */}
       <motion.div
         style={{ y: isMobile ? 0 : y }}
@@ -51,7 +51,7 @@ export function HeroCarousel() {
           modules={[Autoplay, EffectFade, Pagination]}
           effect="fade"
           autoplay={{
-            delay: 7000,
+            delay: 8000,
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
             waitForTransition: false,
@@ -164,9 +164,8 @@ export function HeroCarousel() {
         transition={{ duration: 1, delay: 1, repeat: Infinity, repeatType: "reverse" }}
         className="absolute bottom-4 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex sm:bottom-8 cursor-pointer hover:opacity-100 transition-opacity"
         onClick={() => {
-          const heroHeight = isMobile ? window.innerHeight - 64 : window.innerHeight * 0.95;
           window.scrollTo({
-            top: heroHeight,
+            top: window.innerHeight,
             behavior: 'smooth'
           });
         }}
@@ -193,6 +192,17 @@ export function HeroCarousel() {
           to {
             opacity: 1;
             transform: translateY(0);
+          }
+        }
+
+        @keyframes slideTextFadeOut {
+          from {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          to {
+            opacity: 0;
+            transform: translateY(-20px);
           }
         }
 
@@ -245,11 +255,15 @@ export function HeroCarousel() {
         }
 
         .swiper-slide-active .slide-text-title {
-          animation: slideTextFadeIn 0.8s ease-out 0.2s both;
+          animation:
+            slideTextFadeIn 0.8s ease-out 0.2s both,
+            slideTextFadeOut 0.8s ease-out 6s both;
         }
 
         .swiper-slide-active .slide-text-subtitle {
-          animation: slideTextFadeIn 0.8s ease-out 0.4s both;
+          animation:
+            slideTextFadeIn 0.8s ease-out 0.4s both,
+            slideTextFadeOut 0.8s ease-out 6s both;
         }
 
         .swiper-slide:not(.swiper-slide-active) .slide-text-title,

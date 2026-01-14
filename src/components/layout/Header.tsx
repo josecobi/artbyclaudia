@@ -18,14 +18,14 @@ import { siteConfig } from "@/data/site-config";
  */
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[var(--color-bg-secondary)] bg-[var(--color-bg-primary)] bg-opacity-95 backdrop-blur supports-[backdrop-filter]:bg-opacity-90">
+    <header className="absolute top-0 z-50 w-full">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link
           href="/"
           className="flex items-center space-x-3 text-lg font-semibold transition-colors hover:text-[var(--color-accent)]"
         >
-          <div className="relative h-10 w-10 overflow-hidden rounded-full">
+          <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-white/30 shadow-lg">
             <Image
               src="/images/about/claudia_bio.jpg"
               alt={siteConfig.author}
@@ -34,17 +34,29 @@ export function Header() {
               sizes="40px"
             />
           </div>
-          <span className="font-heading">{siteConfig.name}</span>
+          <span
+            className="font-heading text-white"
+            style={{
+              textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.4), 0 0 12px rgba(0,0,0,0.6)'
+            }}
+          >
+            {siteConfig.name}
+          </span>
         </Link>
 
         {/* Navigation - centered on desktop */}
-        <div className="flex-1 md:flex md:justify-center">
+        <div className="hidden flex-1 md:flex md:justify-center">
           <Navigation />
         </div>
 
-        {/* Theme Toggle - right aligned */}
-        <div className="ml-auto md:ml-0">
-          <ThemeToggle />
+        {/* Right side: Theme Toggle (desktop only) and Mobile Menu */}
+        <div className="ml-auto flex items-center gap-3">
+          <div className="hidden md:block">
+            <ThemeToggle />
+          </div>
+          <div className="md:hidden">
+            <Navigation />
+          </div>
         </div>
       </div>
     </header>

@@ -5,14 +5,14 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 /**
- * Theme toggle button with animated sun/moon icons
+ * Mobile Theme Toggle - Sticky Bottom Right
+ * Only visible on mobile devices
  * Features:
- * - Smooth icon transitions
- * - No FOUC (Flash of Unstyled Content)
- * - Keyboard accessible
- * - ARIA labels for screen readers
+ * - Sticky positioning at bottom right
+ * - Enhanced visibility with shadow
+ * - Smooth animations
  */
-export function ThemeToggle() {
+export function MobileThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -22,10 +22,7 @@ export function ThemeToggle() {
   }, []);
 
   if (!mounted) {
-    // Render a placeholder to prevent layout shift
-    return (
-      <div className="h-9 w-9 rounded-full bg-[var(--color-bg-secondary)]" />
-    );
+    return null;
   }
 
   const isDark = theme === "dark";
@@ -33,18 +30,18 @@ export function ThemeToggle() {
   return (
     <motion.button
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="relative h-9 w-9 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent"
+      className="fixed bottom-6 right-6 z-[100] h-12 w-12 rounded-full bg-black/40 backdrop-blur-md shadow-2xl hover:bg-black/50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent md:hidden"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       whileTap={{ scale: 0.9 }}
       transition={{ duration: 0.2 }}
       style={{
-        boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
+        boxShadow: '0 4px 20px rgba(0,0,0,0.6), 0 8px 32px rgba(0,0,0,0.4)'
       }}
     >
       <div className="flex h-full w-full items-center justify-center">
         {/* Sun icon for light mode */}
         <motion.svg
-          className="absolute h-5 w-5 text-white"
+          className="absolute h-6 w-6 text-white"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.8))'
           }}
@@ -66,7 +63,7 @@ export function ThemeToggle() {
 
         {/* Moon icon for dark mode */}
         <motion.svg
-          className="absolute h-5 w-5 text-white"
+          className="absolute h-6 w-6 text-white"
           style={{
             filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.8))'
           }}

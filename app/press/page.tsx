@@ -29,7 +29,7 @@ export default function PressPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg-primary)]">
+    <div className="min-h-screen bg-[var(--color-bg-primary)] pt-16">
       {/* Hero Section */}
       <section className="relative overflow-hidden border-b border-[var(--color-bg-secondary)] bg-gradient-to-b from-[var(--color-bg-secondary)] to-[var(--color-bg-primary)]">
         <div className="container mx-auto px-4 py-20 sm:px-6 lg:px-8 lg:py-32">
