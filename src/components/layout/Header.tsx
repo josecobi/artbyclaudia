@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Navigation } from "./Navigation";
 import { ThemeToggle } from "./ThemeToggle";
 import { siteConfig } from "@/data/site-config";
@@ -22,8 +23,17 @@ export function Header() {
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center space-x-2 text-lg font-semibold transition-colors hover:text-[var(--color-accent)]"
+          className="flex items-center space-x-3 text-lg font-semibold transition-colors hover:text-[var(--color-accent)]"
         >
+          <div className="relative h-10 w-10 overflow-hidden rounded-full">
+            <Image
+              src="/images/about/claudia_bio.jpg"
+              alt={siteConfig.author}
+              fill
+              className="object-cover"
+              sizes="40px"
+            />
+          </div>
           <span className="font-heading">{siteConfig.name}</span>
         </Link>
 

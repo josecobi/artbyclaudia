@@ -41,7 +41,7 @@ export function Footer() {
                   >
                     {item.label}
                   </Link>
-                  {item.dropdown && (
+                  {"dropdown" in item && item.dropdown && (
                     <div className="ml-4 mt-2 flex flex-col space-y-2">
                       {item.dropdown.map((subItem) => (
                         <Link

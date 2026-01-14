@@ -76,7 +76,7 @@ export function Navigation() {
                           <li key={subItem.label}>
                             <Link
                               href={subItem.href}
-                              className="block px-4 py-2 text-sm transition-colors hover:bg-[var(--color-accent)] hover:bg-opacity-10 hover:text-[var(--color-accent)]"
+                              className="block px-4 py-2 text-sm text-[var(--color-text-primary)] transition-colors hover:bg-[var(--color-accent)] hover:text-white"
                               onClick={() => setOpenDropdown(null)}
                             >
                               {subItem.label}
@@ -188,7 +188,7 @@ export function Navigation() {
                               <li key={subItem.label}>
                                 <Link
                                   href={subItem.href}
-                                  className="block px-4 py-2 text-sm transition-colors hover:bg-[var(--color-accent)] hover:bg-opacity-10 hover:text-[var(--color-accent)]"
+                                  className="block px-4 py-2 text-sm text-[var(--color-text-primary)] transition-colors hover:bg-[var(--color-accent)] hover:text-white"
                                   onClick={toggleMobileMenu}
                                 >
                                   {subItem.label}

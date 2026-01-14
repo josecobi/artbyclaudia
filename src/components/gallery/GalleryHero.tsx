@@ -63,10 +63,23 @@ export function GalleryHero({
         </div>
       </motion.div>
 
-      {/* Multi-layered Gradient Overlays for Artistic Effect */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/70" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg-primary)]/50 via-transparent to-transparent" />
+      {/* Minimal Vignette - Let the Artwork Breathe */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,transparent_40%,rgba(0,0,0,0.15)_70%,rgba(0,0,0,0.35)_100%)]" />
+
+      {/* Enhanced bottom transition with curved wave */}
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
+
+      {/* Curved wave overlay for elegant transition */}
+      <div className="absolute bottom-0 left-0 right-0 -mb-px">
+        <svg
+          viewBox="0 0 1440 80"
+          className="w-full h-16 sm:h-20 lg:h-24"
+          preserveAspectRatio="none"
+          fill="var(--color-bg-primary)"
+        >
+          <path d="M0,48 C240,16 480,16 720,48 C960,80 1200,80 1440,48 L1440,80 L0,80 Z" />
+        </svg>
+      </div>
 
       {/* Content Container */}
       <motion.div
@@ -151,8 +164,6 @@ export function GalleryHero({
         </svg>
       </motion.div>
 
-      {/* Bottom Fade Edge */}
-      <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[var(--color-bg-primary)]/60 to-transparent pointer-events-none" />
     </div>
   );
 }

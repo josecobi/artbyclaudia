@@ -17,6 +17,18 @@ export default function AboutPage() {
     <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
       {/* Page Header */}
       <header className="mb-16 text-center">
+        <div className="mb-6 flex justify-center">
+          <div className="relative h-32 w-32 overflow-hidden rounded-full ring-4 ring-[var(--color-accent)] ring-opacity-20">
+            <Image
+              src="/images/about/claudia_bio.jpg"
+              alt={siteConfig.author}
+              fill
+              className="object-cover"
+              sizes="128px"
+              priority
+            />
+          </div>
+        </div>
         <h1 className="mb-4 font-heading text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
           About {siteConfig.author}
         </h1>
@@ -31,7 +43,7 @@ export default function AboutPage() {
           {/* Artist Photo - Left Side */}
           <div className="relative aspect-[3/4] overflow-hidden rounded-2xl bg-[var(--color-bg-secondary)] shadow-2xl lg:sticky lg:top-24 lg:self-start">
             <Image
-              src="/images/about/claudia_bio.jpg" 
+              src="/images/press/TVY6330.jpg" 
               alt={`Portrait of ${siteConfig.author}`}
               fill
               className="object-cover"
@@ -140,16 +152,16 @@ export default function AboutPage() {
               </div>
 
               <div className="flex flex-wrap gap-3 pt-4">
-                <span className="rounded-full bg-[var(--color-accent)] bg-opacity-10 px-4 py-2 text-sm font-medium text-[var(--color-accent)]">
+                <span className="rounded-full bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-white">
                   Environmental Art
                 </span>
-                <span className="rounded-full bg-[var(--color-accent)] bg-opacity-10 px-4 py-2 text-sm font-medium text-[var(--color-accent)]">
+                <span className="rounded-full bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-white">
                   Body Art
                 </span>
-                <span className="rounded-full bg-[var(--color-accent)] bg-opacity-10 px-4 py-2 text-sm font-medium text-[var(--color-accent)]">
+                <span className="rounded-full bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-white">
                   Make-up Artistry
                 </span>
-                <span className="rounded-full bg-[var(--color-accent)] bg-opacity-10 px-4 py-2 text-sm font-medium text-[var(--color-accent)]">
+                <span className="rounded-full bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-white">
                   Nature Photography
                 </span>
               </div>

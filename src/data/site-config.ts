@@ -21,6 +21,7 @@ export const siteConfig = {
           { label: "Behind the Scenes", href: "/galleries/behind-the-scenes" },
         ],
       },
+      { label: "Press", href: "/press" },
       { label: "Contact", href: "/contact" },
     ],
   },
