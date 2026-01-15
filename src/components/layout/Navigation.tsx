@@ -6,6 +6,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/data/site-config";
 import { cn } from "@/lib/utils";
 
+interface NavigationProps {
+  hasDarkText?: boolean;
+  /** Force dark text regardless of theme (for pages with light backgrounds) */
+  forcesDarkText?: boolean;
+}
+
 /**
  * Navigation component
  * Features:
@@ -14,7 +20,13 @@ import { cn } from "@/lib/utils";
  * - Keyboard navigation support
  * - Accessible ARIA labels
  */
-export function Navigation() {
+export function Navigation({ hasDarkText = false, forcesDarkText = false }: NavigationProps) {
+  // Determine text color class
+  const textColorClass = forcesDarkText
+    ? "text-gray-900"
+    : hasDarkText
+      ? "text-[var(--color-text-primary)]"
+      : "text-white";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
@@ -37,12 +49,11 @@ export function Navigation() {
               >
                 <button
                   className={cn(
-                    "flex items-center gap-1 text-sm font-medium text-white transition-colors hover:text-[var(--color-accent)]",
+                    "flex items-center gap-1 text-sm font-medium transition-colors hover:text-[var(--color-accent)]",
+                    textColorClass,
                     openDropdown === item.label && "text-[var(--color-accent)]"
                   )}
-                  style={{
-                    textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.4)'
-                  }}
+                  style={hasDarkText ? undefined : { textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.4)' }}
                   aria-expanded={openDropdown === item.label}
                   aria-haspopup="true"
                 >
@@ -94,10 +105,8 @@ export function Navigation() {
             ) : (
               <Link
                 href={item.href}
-                className="text-sm font-medium text-white transition-colors hover:text-[var(--color-accent)]"
-                style={{
-                  textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.4)'
-                }}
+                className={`text-sm font-medium transition-colors hover:text-[var(--color-accent)] ${textColorClass}`}
+                style={hasDarkText ? undefined : { textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.4)' }}
               >
                 {item.label}
               </Link>
@@ -108,19 +117,15 @@ export function Navigation() {
 
       {/* Mobile Menu Button */}
       <button
-        className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 rounded-md bg-black/20 backdrop-blur-sm hover:bg-black/30 md:hidden"
+        className={`flex h-9 w-9 flex-col items-center justify-center gap-1.5 rounded-md md:hidden ${forcesDarkText ? "bg-gray-200 hover:bg-gray-300" : hasDarkText ? "bg-[var(--color-bg-secondary)] hover:bg-[var(--color-bg-secondary)]/80" : "bg-black/20 backdrop-blur-sm hover:bg-black/30"}`}
         onClick={toggleMobileMenu}
         aria-label="Toggle mobile menu"
         aria-expanded={isMobileMenuOpen}
-        style={{
-          boxShadow: '0 2px 8px rgba(0,0,0,0.3)'
-        }}
+        style={hasDarkText ? undefined : { boxShadow: '0 2px 8px rgba(0,0,0,0.3)' }}
       >
         <motion.span
-          className="h-0.5 w-5 bg-white"
-          style={{
-            filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.8))'
-          }}
+          className={`h-0.5 w-5 ${forcesDarkText ? "bg-gray-900" : hasDarkText ? "bg-[var(--color-text-primary)]" : "bg-white"}`}
+          style={hasDarkText ? undefined : { filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.8))' }}
           animate={{
             rotate: isMobileMenuOpen ? 45 : 0,
             y: isMobileMenuOpen ? 6 : 0,
@@ -128,20 +133,16 @@ export function Navigation() {
           transition={{ duration: 0.2 }}
         />
         <motion.span
-          className="h-0.5 w-5 bg-white"
-          style={{
-            filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.8))'
-          }}
+          className={`h-0.5 w-5 ${forcesDarkText ? "bg-gray-900" : hasDarkText ? "bg-[var(--color-text-primary)]" : "bg-white"}`}
+          style={hasDarkText ? undefined : { filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.8))' }}
           animate={{
             opacity: isMobileMenuOpen ? 0 : 1,
           }}
           transition={{ duration: 0.2 }}
         />
         <motion.span
-          className="h-0.5 w-5 bg-white"
-          style={{
-            filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.8))'
-          }}
+          className={`h-0.5 w-5 ${forcesDarkText ? "bg-gray-900" : hasDarkText ? "bg-[var(--color-text-primary)]" : "bg-white"}`}
+          style={hasDarkText ? undefined : { filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.8))' }}
           animate={{
             rotate: isMobileMenuOpen ? -45 : 0,
             y: isMobileMenuOpen ? -6 : 0,
@@ -158,7 +159,7 @@ export function Navigation() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="absolute left-0 right-0 top-full mt-2 overflow-hidden bg-black/90 backdrop-blur-lg shadow-2xl md:hidden"
+            className={`absolute left-0 right-0 top-full mt-2 overflow-hidden shadow-2xl md:hidden ${forcesDarkText ? "bg-white" : hasDarkText ? "bg-[var(--color-bg-secondary)]" : "bg-black/90 backdrop-blur-lg"}`}
           >
             <ul className="space-y-1 p-4">
               {siteConfig.navigation.main.map((item) => (
@@ -166,7 +167,7 @@ export function Navigation() {
                   {"dropdown" in item ? (
                     <div>
                       <button
-                        className="flex w-full items-center justify-between px-4 py-3 text-left text-sm font-medium text-white transition-colors hover:bg-white/10 hover:text-[var(--color-accent)]"
+                        className={`flex w-full items-center justify-between px-4 py-3 text-left text-sm font-medium transition-colors hover:text-[var(--color-accent)] ${forcesDarkText ? "text-gray-900 hover:bg-gray-100" : hasDarkText ? "text-[var(--color-text-primary)] hover:bg-[var(--color-bg-primary)]" : "text-white hover:bg-white/10"}`}
                         onClick={() =>
                           setOpenDropdown(
                             openDropdown === item.label ? null : item.label
@@ -206,7 +207,7 @@ export function Navigation() {
                               <li key={subItem.label}>
                                 <Link
                                   href={subItem.href}
-                                  className="block px-4 py-2 text-sm text-white/90 transition-colors hover:bg-white/10 hover:text-white"
+                                  className={`block px-4 py-2 text-sm transition-colors ${forcesDarkText ? "text-gray-700 hover:bg-gray-100 hover:text-gray-900" : hasDarkText ? "text-[var(--color-text-primary)]/80 hover:bg-[var(--color-bg-primary)] hover:text-[var(--color-text-primary)]" : "text-white/90 hover:bg-white/10 hover:text-white"}`}
                                   onClick={toggleMobileMenu}
                                 >
                                   {subItem.label}
@@ -220,7 +221,7 @@ export function Navigation() {
                   ) : (
                     <Link
                       href={item.href}
-                      className="block px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-white/10 hover:text-[var(--color-accent)]"
+                      className={`block px-4 py-3 text-sm font-medium transition-colors hover:text-[var(--color-accent)] ${forcesDarkText ? "text-gray-900 hover:bg-gray-100" : hasDarkText ? "text-[var(--color-text-primary)] hover:bg-[var(--color-bg-primary)]" : "text-white hover:bg-white/10"}`}
                       onClick={toggleMobileMenu}
                     >
                       {item.label}

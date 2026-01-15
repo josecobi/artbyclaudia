@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Navigation } from "./Navigation";
 import { ThemeToggle } from "./ThemeToggle";
 import { siteConfig } from "@/data/site-config";
@@ -15,17 +16,25 @@ import { siteConfig } from "@/data/site-config";
  * - Navigation in the center
  * - Theme toggle on the right
  * - Responsive layout
+ * - Solid background on /about, transparent elsewhere
+ * - Dark text on /about and /contact for readability
  */
 export function Header() {
+  const pathname = usePathname();
+  const hasSolidBg = pathname === "/about";
+  const hasDarkText = pathname === "/about" || pathname === "/contact";
+  // Force dark text regardless of theme (for pages with light backgrounds)
+  const forcesDarkText = pathname === "/contact";
+
   return (
-    <header className="absolute top-0 z-50 w-full">
+    <header className={`absolute top-0 z-50 w-full ${hasSolidBg ? "bg-[var(--color-bg-primary)]/50 backdrop-blur-sm" : ""}`}>
       <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link
           href="/"
           className="flex items-center space-x-3 text-lg font-semibold transition-colors hover:text-[var(--color-accent)]"
         >
-          <div className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-white/30 shadow-lg">
+          <div className={`relative h-10 w-10 overflow-hidden rounded-full ring-2 shadow-lg ${hasDarkText ? "ring-[var(--color-text-primary)]/20" : "ring-white/30"}`}>
             <Image
               src="/images/about/claudia_bio.jpg"
               alt={siteConfig.author}
@@ -35,10 +44,8 @@ export function Header() {
             />
           </div>
           <span
-            className="font-heading text-white"
-            style={{
-              textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.4), 0 0 12px rgba(0,0,0,0.6)'
-            }}
+            className={`font-heading ${forcesDarkText ? "text-gray-900" : hasDarkText ? "text-[var(--color-text-primary)]" : "text-white"}`}
+            style={hasDarkText ? undefined : { textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.4), 0 0 12px rgba(0,0,0,0.6)' }}
           >
             {siteConfig.name}
           </span>
@@ -46,7 +53,7 @@ export function Header() {
 
         {/* Navigation - centered on desktop */}
         <div className="hidden flex-1 md:flex md:justify-center">
-          <Navigation />
+          <Navigation hasDarkText={hasDarkText} forcesDarkText={forcesDarkText} />
         </div>
 
         {/* Right side: Theme Toggle (desktop only) and Mobile Menu */}
@@ -55,7 +62,7 @@ export function Header() {
             <ThemeToggle />
           </div>
           <div className="md:hidden">
-            <Navigation />
+            <Navigation hasDarkText={hasDarkText} forcesDarkText={forcesDarkText} />
           </div>
         </div>
       </div>

@@ -9,6 +9,8 @@ interface GalleryHeroProps {
   description: string;
   backgroundImage: string;
   backgroundAlt?: string;
+  /** Adds a subtle dark overlay for better header/text readability */
+  overlay?: boolean;
 }
 
 /**
@@ -25,6 +27,7 @@ export function GalleryHero({
   description,
   backgroundImage,
   backgroundAlt = "Gallery background",
+  overlay = false,
 }: GalleryHeroProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -62,6 +65,11 @@ export function GalleryHero({
           />
         </div>
       </motion.div>
+
+      {/* Subtle dark overlay for header readability */}
+      {overlay && (
+        <div className="absolute inset-0 bg-black/30" />
+      )}
 
       {/* Minimal Vignette - Let the Artwork Breathe */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,transparent_40%,rgba(0,0,0,0.15)_70%,rgba(0,0,0,0.35)_100%)]" />

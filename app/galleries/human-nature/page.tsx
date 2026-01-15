@@ -34,6 +34,7 @@ export default function HumanNaturePage() {
           description={gallery.description}
           backgroundImage={gallery.heroImage}
           backgroundAlt={`${gallery.title} gallery background`}
+          overlay
         />
       )}
 
@@ -42,7 +43,7 @@ export default function HumanNaturePage() {
         <section className="mx-auto mb-16 max-w-4xl">
           <blockquote className="border-l-4 border-[var(--color-accent)] bg-[var(--color-bg-secondary)] px-8 py-6 italic sm:px-12 sm:py-8">
             <p className="mb-4 text-lg leading-relaxed sm:text-xl">
-              "I believe nature is sacred and that humans are gorgeous animals. My greatest joy is in reintegrating the human form and the beauty of nature. We all share in this living planet and I seek to touch deep nerves within our psyches through my visual offerings. I hope that on some subconscious level my efforts stir our instinctual desire to be one-with-nature. It is a spiritual joy to create and share these images."
+              &ldquo;I believe nature is sacred and that humans are gorgeous animals. My greatest joy is in reintegrating the human form and the beauty of nature. We all share in this living planet and I seek to touch deep nerves within our psyches through my visual offerings. I hope that on some subconscious level my efforts stir our instinctual desire to be one-with-nature. It is a spiritual joy to create and share these images.&rdquo;
             </p>
             <footer className="text-right text-lg font-medium not-italic">
               — Claudia Humburg
