@@ -78,9 +78,22 @@ export function HeroCarousel() {
           className="h-full w-full"
         >
           {!mounted ? (
-            // Show first slide as placeholder until mounted to prevent flash
+            // Show skeleton loader until mounted to prevent flash
             <SwiperSlide key="placeholder">
-              <div className="relative h-full w-full bg-neutral-900" />
+              <div className="relative h-full w-full bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900 animate-pulse">
+                {/* Skeleton for image */}
+                <div className="absolute inset-0 bg-neutral-700/30" />
+
+                {/* Skeleton for text content */}
+                <div className="absolute inset-0 flex items-center justify-center px-4">
+                  <div className="max-w-4xl w-full text-center space-y-4">
+                    {/* Title skeleton */}
+                    <div className="h-12 sm:h-16 md:h-20 lg:h-24 bg-neutral-600/40 rounded-lg mx-auto w-3/4 max-w-2xl" />
+                    {/* Subtitle skeleton */}
+                    <div className="h-6 sm:h-8 md:h-10 bg-neutral-600/30 rounded-lg mx-auto w-1/2 max-w-md" />
+                  </div>
+                </div>
+              </div>
             </SwiperSlide>
           ) : (
             carouselSlides.map((slide, index) => {

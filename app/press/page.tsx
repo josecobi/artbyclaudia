@@ -155,63 +155,21 @@ export default function PressPage() {
           />
         ))}
 
-        {/* Main Content */}
+        {/* Main Content - Simplified */}
         <div className="container relative z-10 mx-auto px-4 py-24 sm:px-6 lg:px-8 lg:py-36">
           <div className="mx-auto max-w-4xl text-center">
-            {/* Press Badge */}
-            <motion.div
-              className="mb-8 flex justify-center"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6 }}
-            >
-              <span className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-[var(--color-accent)]/25">
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3.293 1.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L7.586 10 5.293 7.707a1 1 0 010-1.414zM11 12a1 1 0 100 2h3a1 1 0 100-2h-3z" />
-                </svg>
-                Featured in Z!NK Magazine
-              </span>
-            </motion.div>
-
             {/* Title */}
             <motion.h1
-              className="mb-6 font-heading text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
+              className="font-heading text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
               style={{
                 textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.6), 0 0 40px rgba(0,0,0,0.4)'
               }}
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.6 }}
             >
               Press & Recognition
             </motion.h1>
-
-            {/* Description */}
-            <motion.p
-              className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-white/90 sm:text-xl"
-              style={{
-                textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.5)'
-              }}
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              Claudia Humburg&apos;s groundbreaking environmental art has garnered international
-              attention. Featured in Z!NK Magazine, her avant-garde body painting and nature
-              photography explores the profound connection between humanity and the natural world.
-            </motion.p>
-
-            {/* Decorative element */}
-            <motion.div
-              className="flex items-center justify-center gap-3"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <div className="h-px w-16 bg-gradient-to-r from-transparent to-white opacity-60" />
-              <div className="h-2 w-2 rounded-full bg-white opacity-70" />
-              <div className="h-px w-16 bg-gradient-to-l from-transparent to-white opacity-60" />
-            </motion.div>
           </div>
         </div>
 
@@ -225,6 +183,35 @@ export default function PressPage() {
           >
             <path d="M0,48 C240,80 480,0 720,48 C960,96 1200,16 1440,48 L1440,80 L0,80 Z" />
           </svg>
+        </div>
+      </section>
+
+      {/* Introduction Section */}
+      <section className="container mx-auto px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+        <div className="mx-auto max-w-3xl">
+          {/* Press Badge */}
+          <div className="mb-6 flex justify-center">
+            <span className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-5 py-2.5 text-sm font-medium text-white shadow-lg shadow-[var(--color-accent)]/25">
+              <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3.293 1.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L7.586 10 5.293 7.707a1 1 0 010-1.414zM11 12a1 1 0 100 2h3a1 1 0 100-2h-3z" />
+              </svg>
+              Featured in Z!NK Magazine
+            </span>
+          </div>
+
+          {/* Description */}
+          <p className="mb-8 text-center text-lg leading-relaxed opacity-80 sm:text-xl">
+            Claudia Humburg&apos;s groundbreaking environmental art has garnered international
+            attention. Featured in Z!NK Magazine, her avant-garde body painting and nature
+            photography explores the profound connection between humanity and the natural world.
+          </p>
+
+          {/* Decorative element */}
+          <div className="flex items-center justify-center gap-3">
+            <div className="h-px w-16 bg-gradient-to-r from-transparent via-current to-transparent opacity-30" />
+            <div className="h-2 w-2 rounded-full bg-current opacity-40" />
+            <div className="h-px w-16 bg-gradient-to-l from-transparent via-current to-transparent opacity-30" />
+          </div>
         </div>
       </section>
 
