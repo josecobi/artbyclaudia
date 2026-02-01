@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Speed up dev server
+  experimental: {
+    // Optimize package imports for faster compilation
+    optimizePackageImports: ['framer-motion', 'swiper', 'yet-another-react-lightbox'],
+  },
   images: {
     // Remote image sources (for development placeholders)
     remotePatterns: [
@@ -17,6 +22,8 @@ const nextConfig: NextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     // Image sizes for smaller thumbnails
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Configured quality levels for image optimization
+    qualities: [50, 75, 90],
   },
 };
 

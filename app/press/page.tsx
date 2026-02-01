@@ -15,10 +15,12 @@ export default function PressPage() {
     {
       src: "/images/press/zink-mag-comp-21.jpg",
       alt: "Z!NK Magazine feature on Claudia Humburg - Page 2",
+      aspectRatio: "aspect-[1244/768]", // Match actual image dimensions
     },
     {
       src: "/images/press/TVY6330.jpg",
       alt: "Z!NK Magazine feature showcasing Claudia Humburg's avant-garde environmental art",
+      aspectRatio: "aspect-16/10",
     },
   ];
 
@@ -74,7 +76,7 @@ export default function PressPage() {
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/images/press/humans.svg"
+            src="/images/press/humans-inset.svg"
             alt="Human forms in nature"
             className="h-[90%] w-auto max-w-none -translate-x-1/2 object-contain"
           />
@@ -250,12 +252,12 @@ export default function PressPage() {
                 <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
 
                 {/* Magazine Image */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden">
+                <div className={`relative w-full overflow-hidden ${image.aspectRatio}`}>
                   <Image
                     src={image.src}
                     alt={image.alt}
                     fill
-                    className="object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
                     quality={95}
                     priority={index === 0}

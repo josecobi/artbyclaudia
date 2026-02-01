@@ -127,7 +127,7 @@ export function Footer() {
               </a>
 
               {/* Instagram (if available) */}
-              {siteConfig.social.instagram && (
+              {/* {siteConfig.social.instagram && (
                 <a
                   href={`https://instagram.com/${siteConfig.social.instagram}`}
                   target="_blank"
@@ -143,7 +143,7 @@ export function Footer() {
                   </svg>
                   <span>@{siteConfig.social.instagram}</span>
                 </a>
-              )}
+              )} */}
             </div>
           </div>
         </div>

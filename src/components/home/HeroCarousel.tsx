@@ -26,27 +26,38 @@ import "swiper/css/pagination";
  * - Optimized images with Next/Image
  */
 export function HeroCarousel() {
-  const { scrollY } = useScroll();
+  // Detect mobile viewport - default to false to prevent hydration flash
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  // Detect mobile viewport
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    setMounted(true);
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+    };
+    // Check immediately on mount
     checkMobile();
+    // Listen for resize
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Parallax effect: slower scroll for background
+  // Parallax effect: always create (hooks must be called unconditionally)
+  // but only apply on desktop to avoid scroll interference on mobile
+  const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 150]);
 
+  // Container component: regular div on mobile, motion.div with parallax on desktop
+  const ContainerComponent = isMobile ? 'div' : motion.div;
+  const containerProps = isMobile
+    ? { className: "absolute inset-0 w-full h-full overflow-hidden" }
+    : { style: { y }, className: "absolute inset-0 w-full h-full md:h-[120%] overflow-hidden" };
+
   return (
-    <div className="relative h-[100vh] w-full overflow-hidden">
-      {/* Parallax container - disabled on mobile */}
-      <motion.div
-        style={{ y: isMobile ? 0 : y }}
-        className="absolute inset-0 w-full h-full md:h-[120%]"
-      >
+    <div className="relative h-[100vh] w-full overflow-hidden" suppressHydrationWarning>
+      {/* @ts-ignore - dynamic component type */}
+      <ContainerComponent {...containerProps} suppressHydrationWarning>
         <Swiper
           modules={[Autoplay, EffectFade, Pagination]}
           effect="fade"
@@ -66,10 +77,16 @@ export function HeroCarousel() {
           }}
           className="h-full w-full"
         >
-          {carouselSlides.map((slide, index) => {
-            // Use mobile image if available and on mobile
-            const imageSrc = isMobile && slide.mobileSrc ? slide.mobileSrc : slide.src;
-            const hasBottomRightZoom = isMobile && slide.mobileZoomFocus === 'bottom-right';
+          {!mounted ? (
+            // Show first slide as placeholder until mounted to prevent flash
+            <SwiperSlide key="placeholder">
+              <div className="relative h-full w-full bg-neutral-900" />
+            </SwiperSlide>
+          ) : (
+            carouselSlides.map((slide, index) => {
+              // Use mobile image if available and on mobile
+              const imageSrc = isMobile && slide.mobileSrc ? slide.mobileSrc : slide.src;
+              const hasBottomRightZoom = isMobile && slide.mobileZoomFocus === 'bottom-right';
 
             // Custom pan directions based on image
             let panDirection;
@@ -94,7 +111,7 @@ export function HeroCarousel() {
                     src={imageSrc}
                     alt=""
                     fill
-                    priority={slide.id === "1"}
+                    priority={slide.id === "1" || slide.id === "2"}
                     quality={50}
                     sizes="100vw"
                     className="object-cover blur-3xl scale-110"
@@ -110,7 +127,7 @@ export function HeroCarousel() {
                       src={imageSrc}
                       alt={slide.alt}
                       fill
-                      priority={slide.id === "1"}
+                      priority={slide.id === "1" || slide.id === "2"}
                       quality={90}
                       sizes="100vw"
                       className="object-cover md:object-contain"
@@ -150,9 +167,10 @@ export function HeroCarousel() {
               </div>
             </SwiperSlide>
             );
-          })}
+          })
+          )}
         </Swiper>
-      </motion.div>
+      </ContainerComponent>
 
       {/* Custom Pagination Dots */}
       <div className="swiper-pagination-custom absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2 sm:bottom-8" />
@@ -273,10 +291,21 @@ export function HeroCarousel() {
 
         /* MOBILE: Cinematic zoom effect (below 768px) */
         @media (max-width: 767px) {
+          /* Prevent any parallax/scroll zoom effects on mobile */
+          .relative.h-\[100vh\] {
+            transform: none !important;
+          }
+
+          /* Ensure slides don't overflow on mobile */
+          .swiper-slide {
+            overflow: hidden;
+            touch-action: pan-y pinch-zoom;
+          }
+
           .ken-burns-wrapper {
-            transform: scale(1.0);
-            will-change: transform;
             transform-origin: center center;
+            /* Use GPU acceleration with translate3d to prevent glitchy zoom */
+            transform: translate3d(0, 0, 0) scale(1.0);
           }
 
           /* Bottom-right zoom focus (overrides default zoom) */
@@ -285,23 +314,34 @@ export function HeroCarousel() {
           }
 
           .swiper-slide-active[data-zoom-focus="bottom-right"] .ken-burns-wrapper {
-            animation: cinematicZoomBottomRight 7000ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            animation: cinematicZoomBottomRight 7000ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
           }
 
-          /* Keep final state for bottom-right zoom on non-active slides */
-          .swiper-slide:not(.swiper-slide-active)[data-zoom-focus="bottom-right"] .ken-burns-wrapper {
+          /* All regular slides zoom in */
+          .swiper-slide-active:not([data-zoom-focus]) .ken-burns-wrapper {
+            animation: cinematicZoomIn 7000ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+          }
+
+          /* Maintain zoom on previous slide during fade transition */
+          .swiper-slide-prev:not([data-zoom-focus]) .ken-burns-wrapper {
+            transform: scale(1.15);
+            animation: none;
+          }
+
+          .swiper-slide-prev[data-zoom-focus="bottom-right"] .ken-burns-wrapper {
             transform: scale(1.35);
             animation: none;
           }
 
-          /* All regular slides zoom in (simplified for smooth transitions) */
-          .swiper-slide-active:not([data-zoom-focus]) .ken-burns-wrapper {
-            animation: cinematicZoomIn 7000ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+          /* Only reset on duplicate slides (for loop mode) */
+          .swiper-slide-duplicate .ken-burns-wrapper {
+            transform: scale(1.0) !important;
+            animation: none !important;
           }
 
-          /* Keep final scale on non-active slides to prevent snap-back during transition */
-          .swiper-slide:not(.swiper-slide-active):not([data-zoom-focus]) .ken-burns-wrapper {
-            transform: scale(1.15);
+          /* Reset non-active, non-prev slides */
+          .swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-duplicate) .ken-burns-wrapper {
+            transform: scale(1.0);
             animation: none;
           }
         }

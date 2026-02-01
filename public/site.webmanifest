@@ -1,0 +1,37 @@
+{
+  "name": "Art by Claudia Humburg",
+  "short_name": "Claudia Humburg",
+  "description": "Avant-garde environmental body painting and fine art photography exploring the connection between humanity and nature",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0a0a0a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["art", "photography", "entertainment"],
+  "screenshots": [
+    {
+      "src": "/images/press/zink-mag-claudia.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "label": "Art by Claudia Humburg - Environmental Body Painting"
+    }
+  ]
+}
