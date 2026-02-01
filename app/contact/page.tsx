@@ -127,7 +127,7 @@ export default function ContactPage() {
               </div>
 
               {/* Instagram */}
-              {siteConfig.social.instagram && (
+              {/* {siteConfig.social.instagram && (
                 <div className="flex items-start gap-3">
                   <svg
                     className="mt-1 h-5 w-5 flex-shrink-0 text-[var(--color-accent)]"
@@ -148,7 +148,7 @@ export default function ContactPage() {
                     </a>
                   </div>
                 </div>
-              )}
+              )} */}
 
               {/* Additional Info */}
               <div className="mt-8 border-t border-[var(--color-bg-primary)] pt-6">
