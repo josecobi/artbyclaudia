@@ -41,12 +41,10 @@ export const metadata: Metadata = {
         alt: pressMetadata.imageAlt,
       },
     ],
-    article: {
-      publishedTime: pressMetadata.publishedTime,
-      authors: [pressMetadata.articleAuthor],
-      section: "Art & Culture",
-      tags: ["body painting", "environmental art", "avant-garde", "Z!NK Magazine"],
-    },
+    publishedTime: pressMetadata.publishedTime,
+    authors: [pressMetadata.articleAuthor],
+    section: "Art & Culture",
+    tags: ["body painting", "environmental art", "avant-garde", "Z!NK Magazine"],
   },
 
   twitter: {
