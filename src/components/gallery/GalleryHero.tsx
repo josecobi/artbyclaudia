@@ -57,7 +57,7 @@ export function GalleryHero({
             fill
             priority
             quality={90}
-            sizes="100vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1920px"
             className="object-cover"
             style={{
               objectPosition: "center 40%",
