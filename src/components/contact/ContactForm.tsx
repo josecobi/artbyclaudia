@@ -35,6 +35,7 @@ export function ContactForm() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string>("");
 
   // Email validation regex
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -68,6 +69,11 @@ export function ContactForm() {
     // Clear error when user starts typing
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+
+    // Clear submit error when user starts typing
+    if (submitError) {
+      setSubmitError("");
     }
   };
 
@@ -109,21 +115,37 @@ export function ContactForm() {
     }
 
     setIsSubmitting(true);
+    setSubmitError("");
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch("https://formspree.io/f/mbdkqwbg", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    // Log form data (since we're not actually submitting)
-    console.log("Form submitted:", formData);
+      if (!response.ok) {
+        throw new Error("Failed to send message. Please try again.");
+      }
 
-    setIsSubmitting(false);
-    setIsSuccess(true);
+      setIsSubmitting(false);
+      setIsSuccess(true);
 
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setFormData({ name: "", email: "", message: "" });
-      setIsSuccess(false);
-    }, 3000);
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setFormData({ name: "", email: "", message: "" });
+        setIsSuccess(false);
+      }, 3000);
+    } catch (error) {
+      setIsSubmitting(false);
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again or contact me directly via email."
+      );
+    }
   };
 
   return (
@@ -288,6 +310,21 @@ export function ContactForm() {
                 )}
               </AnimatePresence>
             </div>
+
+            {/* Error Message */}
+            <AnimatePresence>
+              {submitError && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="rounded-lg bg-red-500 bg-opacity-10 border-2 border-red-500 p-4"
+                  role="alert"
+                >
+                  <p className="text-sm text-red-500">{submitError}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Submit Button */}
             <button
