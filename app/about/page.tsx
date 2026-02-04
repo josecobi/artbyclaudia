@@ -92,6 +92,33 @@ export default function AboutPage() {
                   She lives and works in southern California while balancing her time between the entertainment
                   industry as a makeup and hair stylist, and the pursuit of her artistic vision.
                 </p>
+
+                <div className="mt-6 rounded-lg bg-[var(--color-bg-secondary)] p-4 border border-[var(--color-accent)] border-opacity-20">
+                  <p className="text-base opacity-80">
+                    To explore Claudia&apos;s professional makeup and hair styling portfolio, visit{" "}
+                    <a
+                      href="https://claudiahumburg.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-[var(--color-accent)] hover:underline inline-flex items-center gap-1"
+                    >
+                      claudiahumburg.com
+                      <svg
+                        className="h-4 w-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
+                      </svg>
+                    </a>
+                  </p>
+                </div>
               </div>
             </div>
 

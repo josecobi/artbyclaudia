@@ -27,6 +27,27 @@ export function Footer() {
             <p className="text-sm opacity-70 leading-relaxed">
               {siteConfig.description}
             </p>
+            <a
+              href="https://claudiahumburg.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm opacity-70 hover:opacity-100 hover:text-[var(--color-accent)] transition-all"
+            >
+              <svg
+                className="h-4 w-4 flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                />
+              </svg>
+              <span>Professional Portfolio</span>
+            </a>
           </div>
 
           {/* Column 2: Navigation */}
