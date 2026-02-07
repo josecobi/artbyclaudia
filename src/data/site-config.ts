@@ -5,7 +5,7 @@
 
 export const siteConfig = {
   // Base URL - update when deploying
-  url: process.env.NEXT_PUBLIC_BASE_URL || "https://claudiahumburg.com",
+  url: process.env.NEXT_PUBLIC_BASE_URL || "https://artbyclaudiahumburg.com",
 
   // Site identity
   name: "Art by Claudia Humburg",

@@ -1,11 +1,11 @@
 # Robots.txt for Art by Claudia Humburg
-# https://claudiahumburg.com
+# https://artbyclaudiahumburg.com
 
 User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://claudiahumburg.com/sitemap.xml
+Sitemap: https://artbyclaudiahumburg.com/sitemap.xml
 
 # Crawl-delay for polite crawling
 Crawl-delay: 1
