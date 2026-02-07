@@ -5,6 +5,105 @@ import { siteConfig } from "@/data/site-config";
 export const metadata: Metadata = {
   title: `About - ${siteConfig.name}`,
   description: `Learn more about ${siteConfig.author} and the artistic journey behind ${siteConfig.name}`,
+  openGraph: {
+    title: `About ${siteConfig.author}`,
+    description: `Learn about ${siteConfig.author}, a German-American avant-garde artist specializing in environmental body painting and fine art photography.`,
+    url: `${siteConfig.url}/about`,
+    images: [
+      {
+        url: `${siteConfig.url}/images/about/claudia_bio.jpg`,
+        width: 800,
+        height: 800,
+        alt: siteConfig.author,
+      },
+    ],
+  },
+};
+
+// JSON-LD Structured Data for About Page
+const aboutJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "@id": `${siteConfig.url}/about#aboutpage`,
+  url: `${siteConfig.url}/about`,
+  name: `About ${siteConfig.author}`,
+  description: `Learn about ${siteConfig.author}, a German-American avant-garde artist specializing in environmental body painting and fine art photography.`,
+  mainEntity: {
+    "@type": "Person",
+    "@id": `${siteConfig.url}/#artist`,
+    name: siteConfig.author,
+    alternateName: siteConfig.shortName,
+    description:
+      "German-American avant-garde artist specializing in environmental body painting and fine art photography, exploring the profound connection between humanity and the natural world.",
+    url: siteConfig.social.website,
+    image: {
+      "@type": "ImageObject",
+      url: `${siteConfig.url}/images/about/claudia_bio.jpg`,
+      caption: siteConfig.author,
+    },
+    jobTitle: "Environmental Body Painting Artist",
+    hasOccupation: [
+      {
+        "@type": "Occupation",
+        name: "Body Painting Artist",
+        occupationalCategory: "Visual Artist",
+      },
+      {
+        "@type": "Occupation",
+        name: "Fine Art Photographer",
+        occupationalCategory: "Photographer",
+      },
+      {
+        "@type": "Occupation",
+        name: "Make-up Artist",
+        occupationalCategory: "Makeup Artist",
+      },
+    ],
+    knowsAbout: [
+      "Body Painting",
+      "Environmental Art",
+      "Fine Art Photography",
+      "Avant-garde Art",
+      "Nature Photography",
+      "Make-up Artistry",
+    ],
+    nationality: {
+      "@type": "Country",
+      name: "Germany",
+    },
+    workLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: siteConfig.location.city,
+        addressRegion: siteConfig.location.state,
+        addressCountry: siteConfig.location.country,
+      },
+    },
+    sameAs: [
+      siteConfig.social.website,
+      `https://instagram.com/${siteConfig.social.instagram}`,
+      `https://twitter.com/${siteConfig.social.twitter}`,
+    ],
+    email: siteConfig.social.email,
+  },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteConfig.url,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "About",
+        item: `${siteConfig.url}/about`,
+      },
+    ],
+  },
 };
 
 /**
@@ -14,8 +113,13 @@ export const metadata: Metadata = {
  */
 export default function AboutPage() {
   return (
-    <div className="container mx-auto px-4 pt-24 pb-12 sm:px-6 lg:px-8">
-      {/* Page Header */}
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutJsonLd) }}
+      />
+      <div className="container mx-auto px-4 pt-24 pb-12 sm:px-6 lg:px-8">
+        {/* Page Header */}
       <header className="mb-16 text-center">
         <div className="mb-6 flex justify-center">
           <div className="relative h-32 w-32 overflow-hidden rounded-full ring-4 ring-[var(--color-accent)] ring-opacity-20">
@@ -225,6 +329,7 @@ export default function AboutPage() {
           </svg>
         </a>
       </section>
-    </div>
+      </div>
+    </>
   );
 }

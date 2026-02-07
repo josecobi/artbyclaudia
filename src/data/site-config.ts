@@ -16,9 +16,9 @@ export const siteConfig = {
   authorShort: "Claudia",
 
   // Default OG image for social sharing
-  ogImage: "/images/press/zink-mag-claudia.jpg",
+  ogImage: "/images/carousel/humanandnature_10.jpg",
   ogImageAlt:
-    "Claudia Humburg with her avant-garde body painting artwork in Joshua Tree desert",
+    "Claudia Humburg avant-garde environmental body painting artwork",
 
   // SEO keywords
   keywords: [
