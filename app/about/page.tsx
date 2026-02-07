@@ -193,7 +193,7 @@ export default function AboutPage() {
                 </p>
 
                 <p>
-                  She lives and works in southern California while balancing her time between the entertainment
+                  She lives and works in Baltimore, MD while balancing her time between the entertainment
                   industry as a makeup and hair stylist, and the pursuit of her artistic vision.
                 </p>
 
