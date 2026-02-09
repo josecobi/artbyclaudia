@@ -78,10 +78,10 @@ export function GalleryHero({
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
 
       {/* Curved wave overlay for elegant transition */}
-      <div className="absolute bottom-0 left-0 right-0 -mb-px">
+      <div className="absolute bottom-0 left-0 right-0 -mb-1">
         <svg
           viewBox="0 0 1440 80"
-          className="w-full h-16 sm:h-20 lg:h-24"
+          className="w-full h-16 sm:h-20 lg:h-24 block"
           preserveAspectRatio="none"
           fill="var(--color-bg-primary)"
         >

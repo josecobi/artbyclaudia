@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { GalleryImage } from "@/data/galleries";
@@ -47,20 +47,56 @@ function distributeImagesAcrossColumns(
  * - Stagger fade-in animation on load
  * - Theme-aware styling
  * - Fully accessible
+ * - Load more functionality to reduce initial load
  */
 export function MasonryGallery({ images }: MasonryGalleryProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(12);
+  const [columnCount, setColumnCount] = useState(4);
+
+  // Update column count based on screen size
+  useEffect(() => {
+    const updateColumnCount = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setColumnCount(1); // Mobile: 1 column
+      } else if (width < 768) {
+        setColumnCount(2); // Small tablet: 2 columns
+      } else if (width < 1024) {
+        setColumnCount(3); // Tablet: 3 columns
+      } else {
+        setColumnCount(4); // Desktop: 4 columns
+      }
+    };
+
+    updateColumnCount();
+    window.addEventListener("resize", updateColumnCount);
+    return () => window.removeEventListener("resize", updateColumnCount);
+  }, []);
 
   const openLightbox = (index: number) => {
     setPhotoIndex(index);
     setLightboxOpen(true);
   };
 
-  // Distribute images across 4 columns with balanced heights
+  const loadMore = () => {
+    setVisibleCount((prev) => Math.min(prev + 12, images.length));
+  };
+
+  // Get visible images
+  const visibleImages = useMemo(
+    () => images.slice(0, visibleCount),
+    [images, visibleCount]
+  );
+
+  // Check if there are more images to load
+  const hasMore = visibleCount < images.length;
+
+  // Distribute visible images across responsive columns with balanced heights
   const distributedColumns = useMemo(
-    () => distributeImagesAcrossColumns(images, 4),
-    [images]
+    () => distributeImagesAcrossColumns(visibleImages, columnCount),
+    [visibleImages, columnCount]
   );
 
   return (
@@ -142,6 +178,41 @@ export function MasonryGallery({ images }: MasonryGalleryProps) {
         ))}
       </div>
 
+      {/* Load More Button */}
+      {hasMore && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="mt-12 flex justify-center"
+        >
+          <button
+            onClick={loadMore}
+            className="group relative overflow-hidden rounded-full bg-[var(--color-accent)] px-8 py-4 font-medium text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)] focus:ring-offset-2 focus:ring-offset-[var(--color-bg-primary)]"
+            aria-label="Load more images"
+          >
+            <span className="relative z-10 flex items-center gap-2">
+              Load More
+              <svg
+                className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                />
+              </svg>
+            </span>
+            {/* Hover effect overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full transition-transform duration-700 group-hover:translate-x-full" />
+          </button>
+        </motion.div>
+      )}
+
       {/* Lightbox */}
       <Lightbox
         images={images}
@@ -166,25 +237,6 @@ export function MasonryGallery({ images }: MasonryGalleryProps) {
 
         .masonry-grid-column > div {
           margin-bottom: 1rem;
-        }
-
-        /* Hide columns on mobile for responsive layout */
-        @media (max-width: 640px) {
-          .masonry-grid-column:not(:first-child) {
-            display: none;
-          }
-        }
-
-        @media (min-width: 641px) and (max-width: 768px) {
-          .masonry-grid-column:nth-child(n + 3) {
-            display: none;
-          }
-        }
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-          .masonry-grid-column:nth-child(n + 4) {
-            display: none;
-          }
         }
       `}</style>
     </>
