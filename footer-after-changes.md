@@ -1,0 +1,144 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Claudia Humburg Art by Claudia Humburg" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - img "Claudia Humburg" [ref=e7]
+          - generic [ref=e8]: Art by Claudia Humburg
+        - navigation "Main navigation" [ref=e10]:
+          - list [ref=e11]:
+            - listitem [ref=e12]:
+              - link "Home" [ref=e13] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e14]:
+              - link "About" [ref=e15] [cursor=pointer]:
+                - /url: /about
+            - listitem [ref=e16]:
+              - button "Galleries" [ref=e18]:
+                - text: Galleries
+                - img [ref=e19]
+            - listitem [ref=e21]:
+              - link "Press" [ref=e22] [cursor=pointer]:
+                - /url: /press
+            - listitem [ref=e23]:
+              - link "Contact" [ref=e24] [cursor=pointer]:
+                - /url: /contact
+        - button "Switch to dark mode" [ref=e101]:
+          - generic [ref=e102]:
+            - img [ref=e103]
+            - img
+    - main [ref=e28]:
+      - generic [ref=e29]:
+        - generic [ref=e32]:
+          - generic:
+            - generic:
+              - generic:
+                - img
+              - generic:
+                - generic:
+                  - img "Human & Nature Art"
+              - generic:
+                - generic:
+                  - heading "Inspired by Earth" [level=2]
+                  - paragraph: Natural beauty captured in time
+          - generic:
+            - generic:
+              - generic:
+                - img
+              - generic:
+                - generic:
+                  - img "Human & Nature Art"
+              - generic:
+                - generic:
+                  - heading "Creative Journey" [level=2]
+                  - paragraph: Every piece tells a story
+          - generic:
+            - generic:
+              - generic:
+                - img
+              - generic:
+                - generic:
+                  - img "Human & Nature Art"
+              - generic:
+                - generic:
+                  - heading "Nature's Canvas" [level=2]
+                  - paragraph: Where art meets the elements
+          - generic:
+            - generic:
+              - generic:
+                - img
+              - generic:
+                - generic:
+                  - img "Human & Nature Art"
+              - generic:
+                - generic:
+                  - heading "Contemporary Expression" [level=2]
+                  - paragraph: Bold strokes and vivid imagination
+          - generic [ref=e126]:
+            - img [ref=e128]
+            - img "Human & Nature Art" [ref=e131]
+            - generic [ref=e134]:
+              - heading "Human & Nature" [level=2] [ref=e135]
+              - paragraph [ref=e136]: Exploring the connection between humanity and the natural world
+        - generic [ref=e40] [cursor=pointer]:
+          - generic [ref=e41]: Scroll
+          - img [ref=e42]
+    - contentinfo [ref=e44]:
+      - generic [ref=e45]:
+        - generic [ref=e46]:
+          - generic [ref=e47]:
+            - heading "Art by Claudia Humburg" [level=3] [ref=e48]:
+              - link "Art by Claudia Humburg" [ref=e49] [cursor=pointer]:
+                - /url: /
+            - paragraph [ref=e50]: Avant-garde environmental body painting and fine art photography by Claudia Humburg. Exploring the profound connection between humanity and the natural world through transformative visual art.
+            - link "Professional Portfolio" [ref=e51] [cursor=pointer]:
+              - /url: https://claudiahumburg.com
+              - img [ref=e52]
+              - generic [ref=e54]: Professional Portfolio
+          - generic [ref=e55]:
+            - heading "Navigate" [level=4] [ref=e56]
+            - navigation [ref=e57]:
+              - link "Home" [ref=e59] [cursor=pointer]:
+                - /url: /
+              - link "About" [ref=e61] [cursor=pointer]:
+                - /url: /about
+              - generic [ref=e62]:
+                - link "Galleries" [ref=e63] [cursor=pointer]:
+                  - /url: /galleries
+                - generic [ref=e64]:
+                  - link "Human & Nature" [ref=e65] [cursor=pointer]:
+                    - /url: /galleries/human-nature
+                  - link "Behind the Scenes" [ref=e66] [cursor=pointer]:
+                    - /url: /galleries/behind-the-scenes
+              - link "Press" [ref=e68] [cursor=pointer]:
+                - /url: /press
+              - link "Contact" [ref=e70] [cursor=pointer]:
+                - /url: /contact
+          - generic [ref=e71]:
+            - heading "Galleries" [level=4] [ref=e72]
+            - navigation [ref=e73]:
+              - link "Human & Nature" [ref=e74] [cursor=pointer]:
+                - /url: /galleries/human-nature
+              - link "Behind the Scenes" [ref=e75] [cursor=pointer]:
+                - /url: /galleries/behind-the-scenes
+          - generic [ref=e76]:
+            - heading "Contact" [level=4] [ref=e77]
+            - generic [ref=e78]:
+              - link "claudiah1@mac.com" [ref=e79] [cursor=pointer]:
+                - /url: mailto:claudiah1@mac.com
+                - img [ref=e80]
+                - generic [ref=e82]: claudiah1@mac.com
+              - link "+1 (818) 281-2487" [ref=e83] [cursor=pointer]:
+                - /url: tel:+18182812487
+                - img [ref=e84]
+                - generic [ref=e86]: +1 (818) 281-2487
+        - generic [ref=e88]:
+          - paragraph [ref=e89]: © 2026 Art by Claudia Humburg. All rights reserved.
+          - paragraph [ref=e90]:
+            - text: Created by
+            - link "cobitek.com" [ref=e91] [cursor=pointer]:
+              - /url: https://cobitek.com
+  - button "Open Next.js Dev Tools" [ref=e97] [cursor=pointer]:
+    - img [ref=e98]
+  - alert [ref=e124]

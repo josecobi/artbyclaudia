@@ -31,10 +31,10 @@ export function Footer() {
               href="https://claudiahumburg.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm opacity-70 hover:opacity-100 hover:text-[var(--color-accent)] transition-all"
+              className="inline-flex items-center gap-2 text-sm font-medium text-[var(--color-accent)] underline decoration-1 underline-offset-2 hover:decoration-2 transition-all group"
             >
               <svg
-                className="h-4 w-4 flex-shrink-0"
+                className="h-4 w-4 flex-shrink-0 group-hover:scale-110 transition-transform"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
